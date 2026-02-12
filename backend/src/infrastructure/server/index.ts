@@ -9,6 +9,9 @@ import { ComplianceController } from '../../adapters/inbound/http/ComplianceCont
 import { PrismaBankingRepository } from '../../adapters/outbound/postgres/PrismaBankingRepository';
 import { BankingService } from '../../core/application/BankingService';
 import { BankingController } from '../../adapters/inbound/http/BankingController';
+import { PrismaPoolRepository } from '../../adapters/outbound/postgres/PrismaPoolRepository';
+import { PoolService } from '../../core/application/PoolService';
+import { PoolController } from '../../adapters/inbound/http/PoolController';
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -33,6 +36,10 @@ const bankingRepository = new PrismaBankingRepository();
 const bankingService = new BankingService(bankingRepository, complianceService);
 const bankingController = new BankingController(bankingService);
 
+const poolRepository = new PrismaPoolRepository();
+const poolService = new PoolService(poolRepository);
+const poolController = new PoolController(poolService);
+
 app.get('/', (req, res) => {
   res.send('Fuel-EU Platform API is running');
 });
@@ -40,6 +47,7 @@ app.get('/', (req, res) => {
 app.use('/api/routes', routeController.router);
 app.use('/api/compliance', complianceController.router);
 app.use('/api/banking', bankingController.router);
+app.use('/api/pools', poolController.router);
 
 app.post('/api/compliance/calculate', (req: Request, res: Response) => {
   const { actualIntensity, fuelConsumptionTonnes, targetIntensity } = req.body;

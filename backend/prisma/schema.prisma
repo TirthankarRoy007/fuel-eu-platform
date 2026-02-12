@@ -55,6 +55,7 @@ model BankEntry {
 model Pool {
   id        String       @id @default(uuid())
   name      String
+  year      Int
   members   PoolMember[]
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
@@ -66,6 +67,8 @@ model PoolMember {
   id        String   @id @default(uuid())
   poolId    String   @map("pool_id")
   shipId    String   @map("ship_id")
+  cb_before Float    @default(0)
+  cb_after  Float    @default(0)
   pool      Pool     @relation(fields: [poolId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
