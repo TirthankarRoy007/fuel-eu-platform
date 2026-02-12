@@ -1,15 +1,60 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Route {
+  id          String   @id @default(uuid())
+  name        String
+  is_baseline Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("routes")
+}
+
+model ShipCompliance {
+  id                String   @id @default(uuid())
+  shipId            String   @map("ship_id")
+  complianceBalance Float    @map("compliance_balance")
+  year              Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("ship_compliance")
+}
+
+model BankEntry {
+  id        String   @id @default(uuid())
+  amount    Float
+  type      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("bank_entries")
+}
+
+model Pool {
+  id        String       @id @default(uuid())
+  name      String
+  members   PoolMember[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  @@map("pools")
+}
+
+model PoolMember {
+  id        String   @id @default(uuid())
+  poolId    String   @map("pool_id")
+  shipId    String   @map("ship_id")
+  pool      Pool     @relation(fields: [poolId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("pool_members")
 }
