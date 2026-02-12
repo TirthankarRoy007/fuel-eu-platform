@@ -8,11 +8,13 @@ datasource db {
 }
 
 model Route {
-  id          String   @id @default(uuid())
-  name        String
-  is_baseline Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                     String   @id @default(uuid())
+  name                   String
+  is_baseline            Boolean  @default(false)
+  fuelConsumptionTonnes  Float    @default(0) @map("fuel_consumption_tonnes")
+  ghgIntensity           Float    @default(0) @map("ghg_intensity")
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
 
   @@map("routes")
 }

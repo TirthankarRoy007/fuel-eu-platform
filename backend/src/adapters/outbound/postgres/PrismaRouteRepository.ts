@@ -11,6 +11,8 @@ export class PrismaRouteRepository implements IRouteRepository {
       id: r.id,
       name: r.name,
       isBaseline: r.is_baseline,
+      fuelConsumptionTonnes: r.fuelConsumptionTonnes,
+      ghgIntensity: r.ghgIntensity,
       createdAt: r.createdAt,
       updatedAt: r.updatedAt,
     }));
@@ -23,6 +25,8 @@ export class PrismaRouteRepository implements IRouteRepository {
       id: r.id,
       name: r.name,
       isBaseline: r.is_baseline,
+      fuelConsumptionTonnes: r.fuelConsumptionTonnes,
+      ghgIntensity: r.ghgIntensity,
       createdAt: r.createdAt,
       updatedAt: r.updatedAt,
     };
@@ -48,6 +52,8 @@ export class PrismaRouteRepository implements IRouteRepository {
       id: r.id,
       name: r.name,
       isBaseline: r.is_baseline,
+      fuelConsumptionTonnes: r.fuelConsumptionTonnes,
+      ghgIntensity: r.ghgIntensity,
       createdAt: r.createdAt,
       updatedAt: r.updatedAt,
     };
