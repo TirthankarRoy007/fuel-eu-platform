@@ -7,6 +7,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model BankingRecord {
+  id        String   @id @default(uuid())
+  shipId    String   @map("ship_id")
+  year      Int
+  amount    Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([shipId, year])
+  @@map("banking_records")
+}
+
 model Route {
   id                     String   @id @default(uuid())
   name                   String

@@ -5,28 +5,28 @@ const prisma = new PrismaClient()
 async function main() {
   console.log('Start seeding...')
 
+  // Clear existing data to ensure seed values are applied
+  await prisma.bankingRecord.deleteMany({});
+  await prisma.route.deleteMany({});
+
   // Routes
-  const route1 = await prisma.route.upsert({
-    where: { id: 'r001' },
-    update: {},
-    create: {
+  const route1 = await prisma.route.create({
+    data: {
       id: 'r001',
       name: 'R001',
       is_baseline: true,
       fuelConsumptionTonnes: 100,
-      ghgIntensity: 85.0,
+      ghgIntensity: 50.0, // High surplus
     },
   })
 
-  const route2 = await prisma.route.upsert({
-    where: { id: 'r002' },
-    update: {},
-    create: {
+  const route2 = await prisma.route.create({
+    data: {
       id: 'r002',
       name: 'R002',
       is_baseline: false,
       fuelConsumptionTonnes: 150,
-      ghgIntensity: 92.0,
+      ghgIntensity: 92.0, // Deficit
     },
   })
 
