@@ -16,7 +16,12 @@ export class BankingService {
     return this.apiPort.bankSurplus(shipId, year);
   }
 
-  async applySurplus(shipId: string, year: number, amount: number): Promise<any> {
+  async applySurplus(shipId: string, year: number, amount: number): Promise<{
+    cb_before: number;
+    applied: number;
+    cb_after: number;
+    remaining_banked: number;
+  }> {
     return this.apiPort.applySurplus(shipId, year, amount);
   }
 }

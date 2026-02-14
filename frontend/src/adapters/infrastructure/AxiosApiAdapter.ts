@@ -26,7 +26,7 @@ export class AxiosApiAdapter implements IApiPort {
     return response.data;
   }
 
-  async getAdjustedCompliance(shipId: string, year: number): Promise<any> {
+  async getAdjustedCompliance(shipId: string, year: number): Promise<CBRecord & { adjustedComplianceBalance: number }> {
     const response = await axios.get(`${API_BASE_URL}/compliance/adjusted-cb`, {
       params: { shipId, year }
     });
@@ -45,7 +45,12 @@ export class AxiosApiAdapter implements IApiPort {
     return response.data;
   }
 
-  async applySurplus(shipId: string, year: number, amount: number): Promise<any> {
+  async applySurplus(shipId: string, year: number, amount: number): Promise<{
+    cb_before: number;
+    applied: number;
+    cb_after: number;
+    remaining_banked: number;
+  }> {
     const response = await axios.post(`${API_BASE_URL}/banking/apply`, { shipId, year, amount });
     return response.data;
   }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import axios from 'axios';
 import { PoolService } from '../../../core/application/PoolService';
 import { AxiosApiAdapter } from '../../infrastructure/AxiosApiAdapter';
 import type { Pool } from '../../../core/domain/types';
@@ -77,8 +78,12 @@ const PoolingTab: React.FC = () => {
       alert("Pool created successfully!");
       setSelectedIds([]);
       fetchData();
-    } catch (err: any) {
-      alert(err.response?.data?.error || "Failed to create pool.");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        alert(err.response?.data?.error || "Failed to create pool.");
+      } else {
+        alert("An unexpected error occurred.");
+      }
     }
   };
 

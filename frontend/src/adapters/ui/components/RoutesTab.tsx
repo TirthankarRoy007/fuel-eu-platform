@@ -20,7 +20,7 @@ const RoutesTab: React.FC = () => {
       const data = await routeService.fetchRoutes();
       setRoutes(data);
       setError(null);
-    } catch (err: any) {
+    } catch (err) {
       setError('Failed to fetch routes. Ensure backend is running.');
       console.error(err);
     } finally {
@@ -36,8 +36,9 @@ const RoutesTab: React.FC = () => {
     try {
       await routeService.setBaseline(id);
       await loadRoutes(); // Refresh list
-    } catch (err: any) {
-      alert('Error setting baseline: ' + err.message);
+    } catch (err: unknown) {
+      const error = err as Error;
+      alert('Error setting baseline: ' + error.message);
     }
   };
 

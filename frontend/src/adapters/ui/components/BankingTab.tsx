@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BankingService } from '../../../core/application/BankingService';
 import { AxiosApiAdapter } from '../../infrastructure/AxiosApiAdapter';
 import type { CBRecord, BankingRecord } from '../../../core/domain/types';
@@ -26,7 +27,7 @@ const BankingTab: React.FC = () => {
       setCompliance(cbData);
       setBankedRecord(bankData);
       setError(null);
-    } catch (err: any) {
+    } catch (err) {
       console.error(err);
       setError("Failed to fetch banking data. Make sure the backend is running.");
     } finally {
@@ -44,8 +45,12 @@ const BankingTab: React.FC = () => {
       await fetchData();
       setActionResult(null); // Reset result view
       alert("Surplus banked successfully!");
-    } catch (err: any) {
-      alert(err.response?.data?.error || "Failed to bank surplus.");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        alert(err.response?.data?.error || "Failed to bank surplus.");
+      } else {
+        alert("An unexpected error occurred.");
+      }
     }
   };
 
@@ -55,8 +60,12 @@ const BankingTab: React.FC = () => {
       const result = await bankingService.applySurplus(shipId, year, bankedRecord.amount);
       setActionResult(result);
       await fetchData();
-    } catch (err: any) {
-      alert(err.response?.data?.error || "Failed to apply surplus.");
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err)) {
+        alert(err.response?.data?.error || "Failed to apply surplus.");
+      } else {
+        alert("An unexpected error occurred.");
+      }
     }
   };
 

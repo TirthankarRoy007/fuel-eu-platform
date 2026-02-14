@@ -12,7 +12,7 @@ export class PoolService {
     return this.apiPort.createPool(name, year, members);
   }
 
-  async getAdjustedCompliance(shipId: string, year: number): Promise<any> {
+  async getAdjustedCompliance(shipId: string, year: number): Promise<CBRecord & { adjustedComplianceBalance: number }> {
     return this.apiPort.getAdjustedCompliance(shipId, year);
   }
 }
