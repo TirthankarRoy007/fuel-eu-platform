@@ -1,4 +1,4 @@
-import { Route, CBRecord, Pool, BankingRecord } from '../domain/types';
+import type { Route, CBRecord, Pool, BankingRecord } from '../domain/types';
 
 export interface IApiPort {
   getRoutes(): Promise<Route[]>;

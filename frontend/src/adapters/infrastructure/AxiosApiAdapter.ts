@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { IApiPort } from '../../core/ports/IApiPort';
-import { Route, CBRecord, Pool, BankingRecord } from '../../core/domain/types';
+import type { IApiPort } from '../../core/ports/IApiPort';
+import type { Route, CBRecord, Pool, BankingRecord } from '../../core/domain/types';
 
 const API_BASE_URL = 'http://localhost:3001/api';
 
