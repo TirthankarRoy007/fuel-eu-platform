@@ -26,6 +26,13 @@ export class AxiosApiAdapter implements IApiPort {
     return response.data;
   }
 
+  async getAdjustedCompliance(shipId: string, year: number): Promise<any> {
+    const response = await axios.get(`${API_BASE_URL}/compliance/adjusted-cb`, {
+      params: { shipId, year }
+    });
+    return response.data;
+  }
+
   async getBankingRecord(shipId: string, year: number): Promise<BankingRecord> {
     const response = await axios.get(`${API_BASE_URL}/banking/records`, {
       params: { shipId, year }

@@ -5,6 +5,7 @@ export interface IApiPort {
   setBaseline(id: string): Promise<void>;
   getComparison(): Promise<{ baseline: Route | null; others: Route[] }>;
   getCompliance(shipId: string, year: number): Promise<CBRecord>;
+  getAdjustedCompliance(shipId: string, year: number): Promise<any>;
   getBankingRecord(shipId: string, year: number): Promise<BankingRecord>;
   bankSurplus(shipId: string, year: number): Promise<BankingRecord>;
   applySurplus(shipId: string, year: number, amount: number): Promise<any>;
